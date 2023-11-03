@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        h1{
+            color: white;
+            display: flex;
+            justify-content: center;
+            margin-top: 4.5rem;
+        }
+        .container{
+            background-color: white;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            padding: 1rem;
+            display: grid;
+            justify-items: center;
+            border-radius: 7px;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+        .wrapper{
+            width: 100%;
+            text-align: center;
+        }
+        input[type='range']{
+            display: inline-block;
+            width: 85%;
+            margin: 1.5rem 0;    
+        }
+        span{
+            display: inline-block;
+            text-align: center;
+            background-color: #0075ff;
+            color: white;
+            padding: .5rem;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1 id="heading">Color Slider</h1>
+    <div class="container">
+        <div class="wrapper">
+            R <input type="range" 
+            min="0" max="255" 
+            value="0" id="red" oninput="colors()">
+        </div>
+        <div class="wrapper">
+            G <input type="range" 
+            min="0" max="255" 
+            value="0" id="green" oninput="colors()">
+        </div>
+        <div class="wrapper">
+            B <input type="range" 
+            min="0" max="255" 
+            value="0" id="blue" oninput="colors()">
+        </div>
+        <span id="output">rbg(0,0,0)</span>
+    </div>
+    
+   <script>
+    function colors(){
+        const red =document.getElementById('red').value;
+        const green =document.getElementById('green').value;
+        const blue =document.getElementById('blue').value;
+        const colour='rgb('+red+','+green+','+blue+')';
+        document.body.style.background= colour
+        // console.log(colour);
+        // console.log(red);
+        // console.log(green);
+        // console.log(blue);
+        document.getElementById('output').innerHTML=colour
+
+        const complementary_color= 'rgb('+(255-red)+','+(255-green)+','+(255-blue)+')';
+        // console.log(complementary_color);
+        document.getElementById('heading').style.color=complementary_color;
+    }
+   </script>
+</body>
+</html>

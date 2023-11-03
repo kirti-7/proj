@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Image Editor</title>
+    
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: blue;
+        }
+        .wrapper{
+            width: 85vw;
+            min-height: 50vmin;
+            padding: 5rem 3rem;
+            background-color: white;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15);
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+        }
+
+        .editor{
+            min-height: 35vmin;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        .editor label{
+            font-size: 2.8vmin;
+            color: #2a292a;
+            font-weight: 400;
+        }
+        .editor input[type="range"]{
+            display: block;
+            width: 100%;
+            position: relative;
+            margin-top: 5px;
+        }
+        
+        .flip-buttons, .rotate-buttons{
+            display: flex;
+            flex-direction: column;
+            margin-top: 10px;
+        }
+
+        .flip-buttons .flip-option, .rotate-buttons .rotate-option{
+            margin-top: 10px;
+        }
+        .result{
+            position: relative;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="editor">
+            <div class="filter">
+                <label for="blur">Blur</label>
+                <input type="range" value="0" min="0" max="5" step="0.1" id="blur">
+            </div>
+            <div class="filter">
+                <label for="contrast">Contrast</label>
+                <input type="range" min="0" max="200" id="contrast" value="100">
+            </div>
+            <div class="filter">
+                <label for="hue-rotate">Hue-Rotate</label>
+                <input type="range" min="0" max="360" value="0" id="hue-rotate">
+            </div>
+            <div class="filter">
+                <label for="sepia">Sepia</label>
+                <input type="range" min="0" max="100" value="0" id="sepia">
+            </div>
+
+            <div class="flip-buttons">
+                <div class="flip-option">
+                    <input type="radio" name="flip" id="no-flip" checked>
+                    <label for="no-flip">No flip</label>
+                </div>
+                <div class="flip-option">
+                    <input type="radio" name="flip" id="x-flip">
+                    <label for="x-flip">Flip Horizontal</label>
+                </div>
+                <div class="flip-option">
+                    <input type="radio" name="flip" id="y-flip">
+                    <label for="y-flip">Flip Vertical</label>
+                </div>
+            </div>
+
+            <div class="rotate-buttons">
+                <div class="rotate-option">
+                    <input type="checkbox" name="rotate" id="rotate-r">
+                    <label for="rotate-r">Rotate right</label>
+                </div>
+                <div class="rotate-option">
+                    <input type="checkbox" name="rotate" id="rotate-l">
+                    <label for="rotate-l">Rotate left</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="result">
+            <figure class="image-container"></figure>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+    
+</body>
+</html>

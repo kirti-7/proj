@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        *,
+        *::before,
+        *::after{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #8052ec,
+                #d161ff
+            );
+        }
+        .clock{
+            width: 55rem;
+            height: 15rem;
+            /* border: 2px solid black; */
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .clock div{
+            position: relative;
+            background-color: white;
+            height: 100%;
+            width: 15rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 128px;
+            border-radius: 7px;
+            box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.5);
+        }
+        span{
+            font-size: 128px;
+            color: white;
+            text-shadow: 3px 6px 7px rgba(0, 0, 0, 0.5);
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div class="clock">
+        <div id="hour">00</div>
+        <span>:</span>
+        <div id="minutes">00</div>
+        <span>:</span>
+        <div id="seconds">00</div>
+    </div>
+
+    
+    <script>
+        const hour=document.getElementById('hour');
+        const minutes=document.getElementById('minutes');
+        const seconds=document.getElementById('seconds');
+
+        const clock = setInterval(
+            function time(){
+                const current_date= new Date();
+                let hr= current_date.getHours();
+                let min= current_date.getMinutes();
+                let sec= current_date.getSeconds();
+
+
+                // document.getElementById('hour').innerHTML = hr;
+                // document.getElementById('minutes').innerHTML = min;
+                // document.getElementById('seconds').innerHTML = sec;
+
+                if(hr<10) 
+                hr="0"+hr;
+                if(min<10)
+                min="0"+min;
+                if(sec<10)
+                sec="0"+sec;
+
+
+
+                // alternate method
+                hour.textContent=hr;
+                minutes.textContent=min;
+                seconds.textContent=sec;
+
+
+
+            },1000
+        )
+    </script>
+</body>
+</html>

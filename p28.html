@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Word Count</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: aqua;
+        }
+        .wrapper{
+            width: 90vmin;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+        }
+        .container{
+            background-color: white;
+            padding: 50px 30px 80px 30px;
+            border-radius: 8px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+        }
+        textarea{
+            width: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            font-size: 16px;
+            line-height: 28px;
+            color: rebeccapurple;
+        }
+
+        .count{
+            background-color: black;
+            width: 80%;
+            padding: 20px;
+            position: relative;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            border-radius: 7px;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            color: white;
+            box-shadow: 0 30px 50px  rgba(0, 0, 0, 0.15);
+        }
+
+        .count h5{
+            font-size: 32px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="container">
+            <textarea id="input-textarea" rows="12" placeholder="Start typing here..." ></textarea>
+        </div>
+
+        <div class="count">
+            <div>
+                <h5 id="word-count">0</h5>
+                <p>Words</p>
+            </div>
+            <div>
+                <h5 id="char-count">0</h5>
+                <p>Characters</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+    <script>
+
+        let inputTextArea = document.getElementById()
+
+    </script>
+    
+</body>
+</html>

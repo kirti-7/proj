@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspect Ratio Calculator</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #895cf3;
+        }
+        .container{
+            width: 35rem;
+            background-color: white;
+            padding: 80px 40px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 10px;
+            box-shadow: 0 30px 45px rgba(18, 8, 39, 0.2);
+        }
+        h2{
+            text-align: center;
+            font-size: 40px;
+            line-height: 1.6;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+        h2 span{
+            color: #895cf3;
+        }
+        .wrapper-1{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0 70px 0;
+            gap: 10px;
+        }
+
+        .wrapper-1 input{
+            width: 100px;
+            font-size: 30px;
+            font-weight: 600;
+        }
+        input{
+            padding: 15px 10px;
+            border: 1px solid #bbc0c5;
+            border-radius: 5px;
+            color: #170444;
+            outline: none;
+        }
+
+        input:focus{
+            border: 2px solid #895cf3;
+        }
+
+        label{
+            color: #170444;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+        }
+
+        .box{
+            display: flex;
+           justify-content: space-between;
+           gap: 30px;
+        }
+        /* .box input, .wrapper-1 input{
+            width: 7rem;
+            text-align: center;
+        } */
+
+        .wrapper-2,.wrapper-3{
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .wrapper-2 input,.wrapper-3 input{
+           width: 100%;
+           font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><span>Aspect Ratio</span> Calculator</h2>
+       
+        <div class="wrapper-1">
+            <input type="number" value="16" id="ratio-width">
+            <input type="number" value="9" id="ratio-height">
+        </div>
+        <div class="box">
+            <div class="wrapper-2">
+                <label for="width">Width:</label>
+                <input type="number" value="1280" id="width">
+               
+            </div>
+            <div class="wrapper-3">
+                <label for="height">Height:</label>
+                <input type="number" value="720" id="height">
+               
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let ratioWidth= document.getElementById("ratio-width");
+        let ratioHeight= document.getElementById("ratio-height");
+        let width= document.getElementById("width");
+        let height= document.getElementById("height");
+
+
+        let calculateWidth = () =>{
+            let aspectRatio = ratioWidth.value / ratioHeight.value;
+            width.value = parseFloat((height.value* aspectRatio).toFixed(2));
+        }
+        let calculateHeight = () =>{
+            let aspectRatio = ratioWidth.value / ratioHeight.value;
+            height.value = parseFloat((width.value / aspectRatio).toFixed(2));
+        }
+
+        height.addEventListener("input", calculateWidth);
+        width.addEventListener("input", calculateHeight);
+        ratioHeight.addEventListener("input", calculateHeight);
+        ratioWidth.addEventListener("input", calculateWidth);
+
+    </script>
+    
+</body>
+</html>

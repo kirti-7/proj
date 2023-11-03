@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random joke Generator</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: tomato;
+        }
+        
+        .wrapper{
+            width: 80vmin;
+            padding: 50px 40px;
+            background-color: black;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 5px;
+            box-shadow: 20px 20px 40px rgba(97, 63, 0, 0.4);
+        }
+        
+        span{
+            display: block;
+            text-align: center;
+            font-size: 100px;
+        }
+        
+        p{
+            font-size: 16px;
+            color: white;
+            font-weight: 400;
+            word-wrap: break-word;
+            line-height: 35px;
+            margin: 30px 0;
+            opacity: 0;
+        }
+
+        .fade{
+            opacity: 1;
+            transition: opacity 1.5s;
+        }
+
+        button{
+            display: block;
+            background-color: tomato;
+            border: none;
+            padding: 5px;
+            font-size: 18px;
+            color: black;
+            font-weight: 600;
+            padding: 12px 25px;
+            margin: 0 auto;
+            border-radius: 5px;
+            cursor: pointer;
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <span>&#128514;</span>
+        <p id="joke">
+
+        </p>
+        <button id="btn">Get Random Joke</button>
+    </div>
+
+
+    <script>
+        const jokeContainer = document.getElementById("joke");
+        const btn = document.getElementById("btn");
+        const url = 'https://jokes-by-api-ninjas.p.rapidapi.com/v1/jokes';
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': 'f46c3b4f95mshc1db1a70d730681p146992jsn94c6af7c9f1d',
+                'X-RapidAPI-Host': 'jokes-by-api-ninjas.p.rapidapi.com'
+            }
+        };
+
+        try {
+            const response =  fetch(url, options);
+            } catch (error) {
+                console.error(error);
+            }
+        
+        
+
+        let getJoke = () =>{
+
+            jokeContainer.classList.remove("fade");
+            fetch('https://jokes-by-api-ninjas.p.rapidapi.com/v1/jokes', options).then(response => response.json()).then(item => {jokeContainer.innerText = `${item[0].joke}`; jokeContainer.classList.add("fade")});
+            // console.log(item[0].joke)
+        }
+        btn.addEventListener("click",getJoke);
+        // getJoke();
+
+       
+
+    </script>
+    
+    
+</body>
+</html>

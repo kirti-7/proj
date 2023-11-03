@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simon Game</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: blue;
+        }
+        .wrapper{
+            background-color: white;
+            height: 37.5rem;
+            width: 37.5rem;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 0.5em;
+        }
+        .simon{
+            height: 31.25em;
+            width: 31.25em;
+            background-color: #101010;
+            border-radius: 50%;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+        }
+        .color-part{
+            height: 13.12em;
+            width: 13.12em;
+            position: absolute;
+            cursor: pointer;
+        }
+        .color1{
+            background-color: #008000;
+            border-radius: 13em 0 0 0;
+            top: 1.87em;
+            left: 1.87em;
+        }
+        .color2{
+            background-color: #b20c0c;
+            border-radius: 0 0 0 13em;
+            bottom: 1.87em;
+            left: 1.87em;
+        }
+        .color3{
+            background-color: #0606a0;
+            border-radius: 0 13em 0 0;
+            top: 1.87em;
+            right: 1.87em;
+        }
+        .color4{
+            background-color: #7d7d05;
+            border-radius: 0 0 13em 0;
+            bottom: 1.87em;
+            right: 1.87em;
+        }
+
+        .simon::before{
+            position: absolute;
+            content: "";
+            background-color: #101010;
+            height: 13.75em;
+            width: 13.75em;
+            z-index: 1;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            border-radius: 50%;
+        }
+
+        #count{
+            background-color: white;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            z-index: 10;
+            font-size: 2.5rem;
+            padding: .5rem;
+            height: 5rem;
+            width: 5rem;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+        }
+
+        .hide{
+            display: none;
+        }
+
+        .container{
+            background-color: blue;
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container button{
+            background-color: white;
+            font-size: 1.2rem;
+            border: none;
+            outline: none;
+            padding: 1em 2em;
+            border-radius: 0.3rem;
+            cursor: pointer;
+        }
+
+        .container p{
+            font-size: 2em;
+            color: white;
+            margin-bottom: 1em;
+        }
+
+        .container span{
+            font-weight: 600;
+        }
+
+        @media screen and (max-width: 600px) {
+            body{
+                font-size: 10px;
+            }
+            .wrapper{
+                height: 35em;
+                width: 35em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <p id="result" class="hide">All the Best</p>
+        <button id="start">Start Game</button>
+    </div>
+
+    <div class="wrapper hide">
+        <div class="simon">
+            <div class="color1 color-part"></div>
+            <div class="color2 color-part"></div>
+            <div class="color3 color-part"></div>
+            <div class="color4 color-part"></div>
+            <div id="count">00</div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script>
+        const countValue = document.getElementById('count');
+        const colorPart= document.querySelectorAll('.color-part');
+        const container = document.querySelector('.container');
+        const startButton = document.querySelector('#start');
+        const result = document.querySelector('#result');
+        const wrapper = document.querySelector('.wrapper');
+
+        // mapping colors by creating colors object
+        const colors ={
+            color1: {
+                current: "#008000", 
+                new: "#11e711",
+            },
+            color2: {
+                current: "#b20c0c", 
+                new: "#fd2a2a",
+            },
+            color3: {
+                current: "#0606a0", 
+                new: "#2062fc",
+            },
+            color4: {
+                current: "#7d7d05", 
+                new: "#fafa18",
+            },
+        };
+
+        let randomColors = [];
+        let pathGeneratorBool = false;
+        let count,
+        clickCount=0;
+        
+        startButton.addEventListener('click', ()=>{
+            count = 0;
+            clickCount = 0;
+            randomColors = [];
+            pathGeneratorBool = false;
+            wrapper.classList.remove('hide');
+            container.classList.add("hide");
+            pathGenerator();
+        });
+
+        const pathGenerator = () => {
+            randomColors.push(generateRandomValue(colors));
+            count = randomColors.length;
+            pathGeneratorBool = true;
+            pathDecide(count);
+        };
+
+        const generateRandomValue = (obj) => {
+            let arr = Object.keys(obj);
+            return arr[Math.floor(Math.random() * arr.length)];
+        };
+
+        const pathDecide = async (count) =>{
+            countValue.innerText = count;
+            for(let i of randomColors){
+                let currentColor = document.querySelector(`.${i}`);
+                await delay(500);
+                currentColor.style.backgroundColor = `${colors[i]["new"]}`;
+                await delay(600);
+                currentColor.style.backgroundColor = `${colors[i]["current"]}`;
+                await delay(600);
+            }
+
+            pathGeneratorBool = false;
+        };
+
+        async function delay(time){
+            return await new Promise((resolve) =>{
+                setTimeout(resolve, time);
+            });
+        }
+
+        colorPart.forEach((element)=>{
+            element.addEventListener("click", async(e) =>{
+                if(pathGeneratorBool){
+                    return false;
+                }
+                // console.log(e.target.classList[0]);
+                if(e.target.classList[0] == randomColors[clickCount]){
+                    e.target.style.backgroundColor = `${colors[randomColors[clickCount]]['new']}`;
+               
+                    await delay(500);
+
+                    e.target.style.backgroundColor=`${colors[randomColors[clickCount]]["current"]}`;
+
+                    clickCount +=1;
+
+                    if(clickCount== count){
+                        clickCount = 0;
+                        pathGenerator();
+                    }
+                } else {
+                    lose();
+                }
+            });
+        });
+
+        const lose = () => {
+            result.innerHTML = `<span> Your Score: </span> ${count}`;
+            result.classList.remove("hide");
+            container.classList.remove("hide");
+            wrapper.classList.add('hide');
+            startButton.innerText = "Play Again";
+            startButton.classList.remove("hide");
+        }
+
+
+
+
+    </script>
+
+    
+</body>
+</html>

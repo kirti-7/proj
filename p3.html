@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do list</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *,
+        *:before,
+        *:after{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            height: 100vh;
+            background: linear-gradient(
+                135deg,
+                #8052ec,
+                #d161ff
+            );
+        }
+        .container{
+            /* border: 2px solid white; */
+            width: 40%;
+            min-width: 50px;
+            position: absolute;
+            transform: translate(-50%,-50%);
+            top: 50%;
+            left: 50%;
+            padding: 3rem 4rem;
+        }
+        #newtask{
+           display: flex;
+           justify-content: space-between;
+            background-color: white;
+            padding: 3rem 2rem;
+            border-radius: .5rem;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+
+        }
+        #newtask input{
+            width: 80%;
+            height: 45px;
+            border: 2px solid #d1d3d4;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 7px;
+        }
+        #newtask input:focus{
+            outline: none;
+            border-color: #8052ec;
+        }
+        #newtask button{
+            width: 18%;
+            background-color: #8052ec;
+            border: none;
+            border-radius: 7px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        #newtask button:hover{
+            background-color: rgba(128, 82, 236,0.8);
+        }
+
+        #tasks{
+            /* display: none; */
+            background-color: white;
+            padding: 3rem 2rem;
+            margin-top: 6rem;
+            border-radius: 7px;
+            width: 100%;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+/* 
+        #taskname{
+           text-transform: capitalize;
+        } */
+        
+        .task{
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            border-bottom: 1px solid #d1d3d4;
+            padding: 1rem;
+        }
+
+        .delete{
+            border: none;
+            font-size: 20px;
+            background: transparent;
+            cursor: pointer;
+            background-color: #8052ec;
+            color: white;
+            width: 10%;
+            padding: 10px;
+            border-radius: 7px;
+        }
+        .completed{
+            text-decoration: line-through;
+        }
+        .showTime{
+            display: none;
+        }
+        .redbg{
+            background-color: red !important;
+        }
+        .whitebg{
+            background-color: white !important;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="newtask">
+            <input type="text" placeholder="Add new task">
+            <button id="push">Add</button>
+        </div>
+        <div id="tasks" class="showTime"></div>
+    </div>
+
+    <script>
+        
+
+
+
+        document.querySelector('#push').onclick = function(){
+            if(document.querySelector('#newtask input').value.length==0){
+                alert('Please enter a task')
+            }
+            else{
+                document.querySelector('#tasks').innerHTML +=
+                `<div class="task">
+                    <span id="taskname">
+                        ${document.querySelector('#newtask input').value}
+                    </span>
+                    <button class="delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                  </div>  
+                `;
+
+
+                const current_task = document.querySelectorAll('.delete');
+                var t=document.getElementById('tasks');
+                if(current_task.length!=0){
+                            t.classList.remove('showTime');
+                        }
+                for(var i= 0; i<current_task.length; i++){
+                    current_task[i].onclick= function(){
+                        this.parentNode.remove();
+                        var len =document.querySelectorAll('.delete');
+                        var t=document.getElementById('tasks');
+                        if(len.length!=0){
+                            t.classList.remove('showTime');
+                        }
+                        else{
+                            t.classList.add('showTime');
+                        }
+                    }
+                }
+                const task_completed = document.querySelectorAll('.task');
+                for(var i= 0; i<task_completed.length; i++){
+                    task_completed[i].onclick= function(){
+                        this.classList.toggle('completed');  
+                    }
+                }
+
+                document.querySelector('#newtask input').value="";
+
+
+               
+
+                
+                
+                
+            }
+        }
+
+        // function capitalizeFirstLetter(string) {
+        //     return string.charAt(0).toUpperCase() + string.slice(1);
+        // }
+
+        
+    </script>
+</body>
+</html>
